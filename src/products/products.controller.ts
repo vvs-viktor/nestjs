@@ -9,13 +9,9 @@ import {
   Param,
   Post,
   Put,
-  Redirect,
-  Req,
-  Res,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Response, Request } from 'express';
 import { ProductsService } from './products.service';
 import { Product } from './schemas/product.schemas';
 import { ApiTags } from '@nestjs/swagger';
@@ -24,12 +20,6 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
-  // @Get()
-  // @Redirect('https://google.com', 301)
-  // getAll(@Req() req: Request, @Res() res: Response) {
-  //   res.status(201).end('Buy');
-  //   return 'getAll';
-  // }
 
   @Get()
   getAll(): Promise<Product[]> {
