@@ -37,6 +37,10 @@ export class UsersService {
     return this.userModel.findOne({ username });
   }
 
+  async findUser(username: string): Promise<User | undefined> {
+    return this.userModel.findOne({ username }).populate('products').exec();
+  }
+
   async findById(id) {
     return this.userModel.findById(new mongoose.Types.ObjectId(id));
   }

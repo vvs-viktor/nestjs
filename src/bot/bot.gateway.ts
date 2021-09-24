@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {Once, ClientProvider, Client, OnCommand, On} from 'discord-nestjs';
 import {Message} from 'discord.js';
-
 import {UsersService} from '../users/users.service';
 
 @Injectable()
@@ -22,7 +21,7 @@ export class BotGateway {
     );
   }
 
-  @OnCommand({ name: 'version' })
+  @OnCommand({ name: 'test' })
   async onCommand(message: Message): Promise<void> {
     await message.reply(`Execute command: ${message.content}`);
   }
@@ -31,11 +30,11 @@ export class BotGateway {
   async onMessage(message: Message): Promise<void> {
     if (!message.author.bot) {
       const username = message.content.slice(1)
-      const userInfo = await this.userService.findOne( username );
+      const userInfo = await this.userService.findUser( username );
       if(userInfo) {
-        // @ts-ignore
-        const {password, __v, ...newUserInfo} = userInfo.toJSON();
-        await message.reply(JSON.stringify(newUserInfo));
+        const {password, __v, ...newUserInfo} = JSON.parse(JSON.stringify(userInfo));
+        const products = newUserInfo.products.map(item => ({title: item.title, price: item.price}))
+        await message.reply(JSON.stringify({...newUserInfo, products}));
       }else {
         await message.reply(JSON.stringify(`Sorry. There is no user with name "${username}"`));
       }
