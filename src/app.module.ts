@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { BotModule } from './bot/bot.module';
 import {ScheduleModule} from '@nestjs/schedule';
+import { ShortUrlModule } from './short-url/short-url.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import {ScheduleModule} from '@nestjs/schedule';
     AuthModule,
     UsersModule,
     BotModule,
+    ShortUrlModule,
   ],
   controllers: [AppController],
   providers: [AppService],
